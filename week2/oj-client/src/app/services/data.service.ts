@@ -25,7 +25,7 @@ export class DataService {
   }
 
   getProblem(id: number): Promise<Problem> {
-      return this.http.get('api/v1/problem/${id}')
+      return this.http.get(`api/v1/problems/${id}`)
                         .toPromise()
                         .then((res: Response) => res.json())
                         .catch(this.handleError);
