@@ -14,15 +14,18 @@ export class AuthService {
   lock = new Auth0Lock(this.clientId, this.domain, {});
 
   constructor() {
-    // Add callback for lock `authenticated` event
-    this.lock.on("authenticated", (authResult) => {
-      localStorage.setItem('id_token', authResult.idToken);
-    });
   }
 
   public login() {
     // Call the show method to display the widget.
-    this.lock.show();
+    this.lock.show((error: string, profile: Object, id_token: string) => {
+      if (error) {
+        console.log(error);
+      } else {
+        localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem('id_token', id_token);
+      }
+    });
   }
 
   public authenticated() {
@@ -34,5 +37,6 @@ export class AuthService {
   public logout() {
     // Remove token from localStorage
     localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
   }
 }
