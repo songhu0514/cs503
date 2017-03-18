@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ProblemListComponent } from './components/problem-list/problem-list.component';
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
 
+import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { NewProblemComponent } from './components/new-problem/new-problem.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -30,6 +31,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   providers: [{
     provide: "data",
     useClass: DataService
+  },
+  {
+    provide: "auth",
+    useClass: AuthService
   }],
   bootstrap: [AppComponent]
 })
