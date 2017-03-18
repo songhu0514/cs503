@@ -16,16 +16,19 @@ export class AuthService {
   constructor() {
   }
 
-  public login() {
-    // Call the show method to display the widget.
-    this.lock.show((error: string, profile: Object, id_token: string) => {
-      if (error) {
-        console.log(error);
-      } else {
-        localStorage.setItem('profile', JSON.stringify(profile));
-        localStorage.setItem('id_token', id_token);
-      }
-    });
+  public login(): Promise<Object> {
+    return new Promise((resolve, reject) => {
+      // Call the show method to display the widget.
+      this.lock.show((error: string, profile: Object, id_token: string) => {
+        if (error) {
+          reject(error);
+        } else {
+          localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('id_token', id_token);
+          resolve(profile);
+        }
+      });
+    })
   }
 
   public authenticated() {
@@ -38,5 +41,9 @@ export class AuthService {
     // Remove token from localStorage
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
+  }
+
+  public getProfile(): Object {
+    return JSON.parse(localStorage.getItem('profile'));
   }
 }
