@@ -46,4 +46,10 @@ export class AuthService {
   public getProfile(): Object {
     return JSON.parse(localStorage.getItem('profile'));
   }
+
+  public resetPassword() {
+
+  }
+
+
 }
