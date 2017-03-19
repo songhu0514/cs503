@@ -23,7 +23,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProblemDetailComponent,
     NewProblemComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent    
   ],
   imports: [
     BrowserModule,
@@ -38,6 +38,10 @@ import { ProfileComponent } from './components/profile/profile.component';
   {
     provide: "auth",
     useClass: AuthService
+  },
+  {
+    provide: "authGuard",
+    useClass: AuthGuardService
   },
   AuthGuardService
   ],

@@ -23,4 +23,4 @@ export class ProblemListComponent implements OnInit {
     this.subscriptionProblems = this.data.getProblems()
                                 .subscribe(problems => this.problems = problems);
   }
-} 
+}
