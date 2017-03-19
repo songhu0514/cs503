@@ -1,7 +1,8 @@
 // app/auth.service.ts
-
 import { Injectable }      from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -13,7 +14,7 @@ export class AuthService {
   domain = 'songhu.auth0.com'
   lock = new Auth0Lock(this.clientId, this.domain, {});
 
-  constructor() {
+  constructor(private http : Http) {
   }
 
   public login(): Promise<Object> {
@@ -43,13 +44,30 @@ export class AuthService {
     localStorage.removeItem('profile');
   }
 
-  public getProfile(): Object {
+  public getProfile(): any {
     return JSON.parse(localStorage.getItem('profile'));
   }
 
   public resetPassword() {
+    let profile = this.getProfile();
+    let url : string = `https://${this.domain}/dbconnections/change_password`;
+    let headers = new Headers({'content-type': 'application/json'});
+    let body = {
+      client_id: this.clientId,
+      email: profile.email,
+      connection: 'Username-Password-Authentication'
+    }
 
+    this.http.post(url, body, headers)
+      .toPromise()
+      .then((res: Response) => {
+          console.log(res.json());
+      })
+      .catch(this.handleError);
   }
 
-
+  private handleError(error : any) : Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
 }
