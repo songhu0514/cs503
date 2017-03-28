@@ -12,6 +12,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongoose": "^4.8.7",
+    "node-rest-client": "^3.0.7",
     "redis": "^2.7.1",
     "socket.io": "^1.7.3"
   }
