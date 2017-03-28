@@ -24,4 +24,12 @@ router.post("/problems", jsonParser, function(req, res) {
     });
 });
 
+router.post("/build_and_run", jsonParser, function(req, res) {
+  const userCode = req.body.user_code;
+  const lang = req.body.lang;
+
+  console.log(lang + "; " + userCode);
+  res.json({});
+});
+
 module.exports = router;

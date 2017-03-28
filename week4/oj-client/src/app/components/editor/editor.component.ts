@@ -14,6 +14,7 @@ export class EditorComponent implements OnInit {
   public languages: string[] = ['Java', 'C++', 'Python'];
   language: string = 'Java';
 
+  output: string = '';
   seesionId: string;
 
   defaultContent = {
@@ -41,7 +42,8 @@ int main() {
   }
 
   constructor(@Inject('collaboration') private collaboration,
-            private route: ActivatedRoute) { }
+            private route: ActivatedRoute,
+            @Inject("data") private data) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -84,10 +86,16 @@ int main() {
   resetEditor(): void {
     this.editor.getSession().setMode('ace/mode/' + this.languageBundleName[this.language]);
     this.editor.setValue(this.defaultContent[this.language]);
+    this.output = '';
   }
 
   submit(): void {
     let userCode = this.editor.getValue();
-    console.log(userCode);
+    let dataSubmit = {
+      user_code: userCode,
+      lang: this.language.toLowerCase()
+    };
+    this.data.buildAndRun(dataSubmit)
+        .then(res => this.output = res.text);
   }
 }
