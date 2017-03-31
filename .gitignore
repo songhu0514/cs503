@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/executor/tmp
 
 # dependencies
 /node_modules
@@ -38,3 +39,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# python
+*.pyc

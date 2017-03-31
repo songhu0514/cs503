@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/executor/tmp
 
 /public
 
@@ -40,3 +41,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# python
+*.pyc
