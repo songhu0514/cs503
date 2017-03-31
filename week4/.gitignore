@@ -3,7 +3,9 @@
 # compiled output
 /dist
 /tmp
-/executor/tmp
+
+# Executor temp files
+/executor/tmp/
 
 /public
 

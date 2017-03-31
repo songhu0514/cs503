@@ -13,6 +13,7 @@ def hello():
 
 @app.route("/build_and_run", methods=["POST"])
 def build_and_run():
+    print "get called!"
     data = json.loads(request.data)
     if 'code' not in data or 'lang' not in data:
         return "You should provide both 'code' and 'lang'"
