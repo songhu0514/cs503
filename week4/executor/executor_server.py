@@ -27,7 +27,9 @@ def build_and_run():
 
 if __name__ == "__main__":
     eu.load_image()
-
-    port = int(sys.argv[1])
+    if len(sys.argv) <= 1:
+        port = 5000
+    else:
+        port = int(sys.argv[1])
     print "Executor running on %d" % port
     app.run(port=port, debug=True)

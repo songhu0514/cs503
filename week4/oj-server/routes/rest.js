@@ -41,7 +41,7 @@ router.post("/build_and_run", jsonParser, function(req, res, next) {
       data: {code: userCode, lang: lang},
       headers: {'Content-Type': 'application/json'}
     }, (data,response) => {
-      console.log("Received response from execution server: " + response);
+      console.log("Received response from execution server: " + data['run']);
       const text = `Build output: ${data['build']}
       Execute output: ${data['run']}`;
 
