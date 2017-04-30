@@ -1,4 +1,5 @@
 python-jsonrpc
 pymongo
 pika
+redis
 requests

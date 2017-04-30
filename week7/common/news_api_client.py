@@ -27,7 +27,7 @@ def getNewsFromSource(sources=DEFAULT_SOURCES, sortBy=SORT_BY_TOP):
            res_json['source'] is not None):
            #populate news
            for news in res_json['articles']:
-               news['source'] = res_json['articles']
+               news['source'] = res_json['source']
 
            articles.extend(res_json['articles']) 
     return articles
