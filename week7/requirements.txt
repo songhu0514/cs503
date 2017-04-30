@@ -1,3 +1,4 @@
+lxml
 python-jsonrpc
 pymongo
 pika
