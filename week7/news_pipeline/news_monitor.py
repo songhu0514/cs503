@@ -20,7 +20,19 @@ SLEEP_TIME_IN_SECOUNDS = 10
 SCRAPE_NEWS_TASK_QUEUE_URL = "amqp://pqfmhgju:8x2vFcULIi6ACRB9od8sasnOKIO3rQXx@donkey.rmq.cloudamqp.com/pqfmhgju"
 SCRAPE_NEWS_TASK_QUEUE_NAME = "tap-news-scrape-news-task-queue"
 
-NEWS_SOURCES = ['cnn']
+NEWS_SOURCES = [
+    'bbc-news',
+    'bbc-sport',
+    'bloomberg',
+    'cnn',
+    'entertainment-weekly',
+    'espn',
+    'ign',
+    'techcrunch',
+    'the-new-york-times',
+    'the-wall-street-journal',
+    'the-washington-post'
+]
 
 redis_client = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
 cloudAMQP_client = CloudAMQPClient(SCRAPE_NEWS_TASK_QUEUE_URL, SCRAPE_NEWS_TASK_QUEUE_NAME)
