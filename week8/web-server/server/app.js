@@ -1,7 +1,9 @@
 var cors = require('cors');
 var express = require('express');
+var passport = require('passport');
 var path = require('path');
 
+var auth = require('./routes/auth');
 var index = require('./routes/index');
 var news = require('./routes/news');
 
@@ -15,6 +17,18 @@ app.use('/static', express.static(path.join(__dirname, '../client/build/static/'
 // TODO: remove this after development is done
 app.use(cors());
 
+// load passport strategies
+app.use(passport.initialize());
+var localSignupStrategy = require('./passport/signup_passport');
+var localLoginStrategy = require('./passport/login_passport');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+// pass the authenticaion checker middleware
+const authCheckMiddleware = require('./middleware/auth_checker');
+app.use('/news', authCheckMiddleware);
+
+app.use('/auth', auth);
 app.use('/', index);
 app.use('/news', news);
 
