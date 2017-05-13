@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+
 import Auth from '../Auth/Auth';
 
 const Base = ({ children }) => (
@@ -10,12 +12,12 @@ const Base = ({ children }) => (
           {Auth.isUserAuthenticated() ?
             (<div>
                <li>{Auth.getEmail()}</li>
-               <li><a href="/logout">Log out</a></li>
+               <li><Link to="/logout">Log out</Link></li>
              </div>)
              :
             (<div>
-               <li><a href="/login">Log in</a></li>
-               <li><a href="/signup">Sign up</a></li>
+               <li><Link to="/login">Log in</Link></li>
+               <li><Link to="/signup">Sign up</Link></li>
              </div>)
           }
         </ul>

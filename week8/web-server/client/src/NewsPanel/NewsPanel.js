@@ -9,7 +9,7 @@ import NewsCard from '../NewsCard/NewsCard';
 class NewsPanel extends React.Component{
   constructor() {
     super();
-    this.state = {news:null};
+    this.state = {news:null, pageNum:1, totalPages:1, loadedAll:false};
     this.handleScroll = this.handleScroll.bind(this);
   }
 
@@ -28,7 +28,14 @@ class NewsPanel extends React.Component{
   }
 
   loadMoreNews() {
-    let request = new Request('http://localhost:3000/news', {
+    if (this.state.loadedAll === true) {
+      return;
+    }
+
+    let url = 'http://localhost:3000/news/userId/' + Auth.getEmail()
+              + '/pageNum/' + this.state.pageNum;
+
+    let request = new Request(encodeURI(url), {
       method: 'GET',
       headers: {
         'Authorization': 'bearer ' + Auth.getToken(),
@@ -39,8 +46,12 @@ class NewsPanel extends React.Component{
     fetch(request)
       .then((res) => res.json())
       .then((news) => {
+        if (!news ||  news.length === 0) {
+          this.setState({loadedAll: true});
+        }
         this.setState({
           news: this.state.news? this.state.news.concat(news) : news,
+          pageNum: this.state.pageNum + 1
         });
       });
   }

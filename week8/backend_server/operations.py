@@ -6,6 +6,7 @@ import redis
 import sys
 
 from bson.json_util import dumps
+from datetime import datetime
 
 # import common package in parent directory
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
@@ -51,4 +52,9 @@ def getNewsSummariesForUser(user_id, page_num):
 
         sliced_news = total_news[begin_index:end_index]
 
+    for news in sliced_news:
+        # Remove text field to save bandwidth.
+        del news['text']
+        if news['publishedAt'].date() == datetime.today().date():
+            news['time'] = 'today'
     return json.loads(dumps(sliced_news))
